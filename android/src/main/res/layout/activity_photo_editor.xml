@@ -41,8 +41,8 @@
                     android:id="@+id/drawing_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/photo_edit_iv"
                     android:layout_alignBottom="@+id/photo_edit_iv"
+                    android:layout_alignTop="@+id/photo_edit_iv"
                     android:layout_centerInParent="true"
                     android:visibility="gone" />
 
@@ -119,8 +119,8 @@
                     android:id="@+id/add_text_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
                     android:padding="15dp"
                     android:text="@string/ic_text"
                     android:textColor="#FFFFFF"

@@ -48,4 +48,3 @@ buck-out/
 .history/*
 ios/Pods/*
 ios/Podfile.lock
-*.hprof
