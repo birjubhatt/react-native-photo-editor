@@ -10,12 +10,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "git": "^0.1.5",
     "react": "17.0.1",
     "react-native": "0.64.2",
-    "react-native-photo-editor": "../",
     "react-native-fs": "2.18.0",
+    "react-native-photo-editor-share-catalog": "../",
     "rn-fetch-blob": "0.12.0"
-
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

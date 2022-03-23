@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {Image} from 'react-native';
-import PhotoEditor from 'react-native-photo-editor';
+import PhotoEditor from 'react-native-photo-editor-share-catalog';
 import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -74,7 +74,7 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this._onPress}>
-          <Text>Click</Text>
+          <Text>Click on+</Text>
         </TouchableOpacity>
       </View>
     );
