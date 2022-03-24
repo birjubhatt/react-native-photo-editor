@@ -12,7 +12,7 @@
   "dependencies": {
     "react": "17.0.1",
     "react-native": "0.64.2",
-    "react-native-photo-editor": "../",
+    "react-native-photo-editor-share-catalog": "../",
     "react-native-fs": "2.18.0",
     "rn-fetch-blob": "0.12.0"
 

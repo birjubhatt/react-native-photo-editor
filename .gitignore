@@ -48,3 +48,6 @@ buck-out/
 .history/*
 ios/Pods/*
 ios/Podfile.lock
+android/gradlew
+android/gradlew.bat
+android/gradle
