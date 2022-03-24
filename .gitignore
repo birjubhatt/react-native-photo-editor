@@ -51,3 +51,4 @@ ios/Podfile.lock
 android/gradlew
 android/gradlew.bat
 android/gradle
+Example/android/java_pid3787.hprof

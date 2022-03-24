@@ -20,6 +20,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.core.app.ActivityCompat;
@@ -31,6 +32,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,6 +52,7 @@ import com.ahmedadeltito.photoeditorsdk.BrushDrawingView;
 import com.ahmedadeltito.photoeditorsdk.OnPhotoEditorSDKListener;
 import com.ahmedadeltito.photoeditorsdk.PhotoEditorSDK;
 import com.ahmedadeltito.photoeditorsdk.ViewType;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.viewpagerindicator.PageIndicator;
 
 import java.io.BufferedOutputStream;
@@ -107,7 +110,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        selectedImagePath = getIntent().getExtras().getString("selectedImagePath");	
+        selectedImagePath = getIntent().getExtras().getString("selectedImagePath");
         if (selectedImagePath.contains("content://")) {
             selectedImagePath = getPath(Uri.parse(selectedImagePath));
         }
@@ -275,7 +278,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         }.start();
 
         ArrayList hiddenControls = (ArrayList<Integer>) getIntent().getExtras().getSerializable("hiddenControls");
-        for (int i = 0;i < hiddenControls.size();i++) {
+        for (int i = 0; i < hiddenControls.size(); i++) {
             if (hiddenControls.get(i).toString().equalsIgnoreCase("text")) {
                 addTextView.setVisibility(View.INVISIBLE);
             }
@@ -314,6 +317,8 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
     }
 
+
+    // todo add into this method after selection from galary
     public void addImage(Bitmap image) {
         photoEditorSDK.addImage(image);
         if (mLayout != null)
@@ -495,8 +500,8 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageName = "/IMG_" + timeStamp + ".jpg";
 
-                 String selectedImagePath = getIntent().getExtras().getString("selectedImagePath");
-                 File file = new File(selectedImagePath);
+                String selectedImagePath = getIntent().getExtras().getString("selectedImagePath");
+                File file = new File(selectedImagePath);
 //                String newPath = getCacheDir() + imageName;
 //	            File file = new File(newPath);
 
@@ -576,18 +581,24 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
 
-         if (v.getId() == R.id.close_tv) {
+        if (v.getId() == R.id.close_tv) {
             onBackPressed();
         } else if (v.getId() == R.id.add_image_emoji_tv) {
-            mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-           // mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+            // mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+
+            ImagePicker.with(this)
+                    .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                    .start();
+
+
             Toast.makeText(this, "tv emoji click", Toast.LENGTH_SHORT).show();
             onBackPressed();
-        } else if(v.getId() == R.id.add_crop_tv) {
+        } else if (v.getId() == R.id.add_crop_tv) {
             System.out.println("CROP IMAGE DUD");
-            startCropping();
-          //  System.out.println("CROP IMAGE DUD");
-          //  startCropping();
+            // startCropping();
+            //  System.out.println("CROP IMAGE DUD");
+            //  startCropping();
             Toast.makeText(this, "tv crop", Toast.LENGTH_SHORT).show();
             onBackPressed();
         } else if (v.getId() == R.id.add_text_tv) {
@@ -703,26 +714,23 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private Typeface getFontFromRes(int resource)
-    {
+    private Typeface getFontFromRes(int resource) {
         Typeface tf = null;
         InputStream is = null;
         try {
             is = getResources().openRawResource(resource);
-        }
-        catch(Resources.NotFoundException e) {
+        } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Could not find font in resources!");
         }
 
         String outPath = getCacheDir() + "/tmp" + System.currentTimeMillis() + ".raw";
 
-        try
-        {
+        try {
             byte[] buffer = new byte[is.available()];
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outPath));
 
             int l = 0;
-            while((l = is.read(buffer)) > 0)
+            while ((l = is.read(buffer)) > 0)
                 bos.write(buffer, 0, l);
 
             bos.close();
@@ -731,9 +739,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
 
             // clean up
             new File(outPath).delete();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             Log.e(TAG, "Error reading in font!");
             return null;
         }
@@ -777,25 +783,48 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            if (data != null) {
-                final Uri resultUri = UCrop.getOutput(data);
-                if (resultUri != null) {
-                    try {
-                        selectedImagePath = resultUri.toString();
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver() , resultUri);
-                        photoEditImageView.setImageBitmap(bitmap);
-                    } catch (Exception ex) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == UCrop.REQUEST_CROP) {
+                if (data != null) {
+                    final Uri resultUri = UCrop.getOutput(data);
+                    if (resultUri != null) {
+                        try {
+                            selectedImagePath = resultUri.toString();
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                            photoEditImageView.setImageBitmap(bitmap);
+                        } catch (Exception ex) {
+                            System.out.println("NO IMAGE DATA FOUND");
+                        }
+                    } else {
                         System.out.println("NO IMAGE DATA FOUND");
                     }
                 } else {
-                    System.out.println("NO IMAGE DATA FOUND");
+                    System.out.println("NO RESULT");
                 }
+            } else if (resultCode == Activity.RESULT_OK) {
+                //Image Uri will not be null for RESULT_OK
+                Uri imageUri = data.getData();
+
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    addImage(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("ERROR WHILE IMAGE URI TO BITMAP");
+                    System.out.println("ERROR IS " + e);
+
+                }
+
+                // Use Uri object instead of File to avoid storage permissions
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
             } else {
-                System.out.println("NO RESULT");
+                Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     protected String getPath(final Uri uri) {
         // DocumentProvider
