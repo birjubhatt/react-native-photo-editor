@@ -52,3 +52,6 @@ android/gradlew
 android/gradlew.bat
 android/gradle
 Example/android/java_pid3787.hprof
+*.pro
+android/photoeditorsdk/src/androidTest/java/com/ahmedadeltito/photoeditorsdk/ExampleInstrumentedTest.java
+android/photoeditorsdk/src/test/java/com/ahmedadeltito/photoeditorsdk/ExampleUnitTest.java
