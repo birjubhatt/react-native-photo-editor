@@ -1,5 +1,4 @@
 package com.ahmedadeltito.photoeditorsdk;
-
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;

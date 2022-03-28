@@ -15,7 +15,6 @@
  */
 
 package com.ahmedadeltito.photoeditorsdk;
-
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;

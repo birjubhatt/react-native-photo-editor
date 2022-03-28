@@ -1,5 +1,4 @@
 package com.ahmedadeltito.photoeditorsdk;
-
 import android.graphics.PointF;
 
 public class Vector2D extends PointF {

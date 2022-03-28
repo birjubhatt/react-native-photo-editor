@@ -53,6 +53,5 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.2-native'
     implementation 'com.android.support:exifinterface:27.1.1'
     implementation 'com.github.dhaval2404:imagepicker:2.1'
-    implementation project(path: ':photoeditorsdk')
 
 }
