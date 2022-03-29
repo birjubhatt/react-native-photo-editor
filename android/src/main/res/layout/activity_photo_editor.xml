@@ -37,7 +37,7 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop" />
 
-                <com.ahmedadeltito.photoeditor.photoeditorsdk.BrushDrawingView
+                <com.ahmedadeltito.photoeditorsdk.BrushDrawingView
                     android:id="@+id/drawing_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
