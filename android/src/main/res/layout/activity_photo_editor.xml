@@ -41,68 +41,19 @@
                     android:id="@+id/drawing_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/photo_edit_iv"
                     android:layout_alignTop="@+id/photo_edit_iv"
+                    android:layout_alignBottom="@+id/photo_edit_iv"
                     android:layout_centerInParent="true"
                     android:visibility="gone" />
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/done_drawing_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:shadowColor="#000000"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="2"
-                android:text="@string/done"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/erase_drawing_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_toStartOf="@+id/done_drawing_tv"
-                android:padding="10dp"
-                android:shadowColor="#000000"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="2"
-                android:text="@string/erase"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/drawing_view_color_picker_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true" />
-
-            <View
-                android:id="@+id/top_shadow"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/fading_shadow" />
-
             <RelativeLayout
                 android:id="@+id/top_parent_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/top_shadow"
                 android:layout_alignTop="@+id/top_shadow"
+                android:layout_alignBottom="@+id/top_shadow"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp">
 
@@ -119,8 +70,8 @@
                     android:id="@+id/add_text_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
                     android:padding="15dp"
                     android:text="@string/ic_text"
                     android:textColor="#FFFFFF"
@@ -159,19 +110,27 @@
 
             </RelativeLayout>
 
-            <View
-                android:id="@+id/bottom_shadow"
+            <RelativeLayout
+                android:id="@+id/seek_rl"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/below_shadow" />
+                android:layout_above="@+id/bottom_parent_rl"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/skb_alpha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:min="0"
+                    android:max="100"
+                    android:progress="100"
+                    />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/bottom_parent_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/bottom_shadow"
                 android:layout_alignTop="@+id/bottom_shadow"
+                android:layout_alignBottom="@+id/bottom_shadow"
                 android:paddingLeft="26dp"
                 android:paddingRight="26dp">
 
@@ -191,8 +150,8 @@
                     android:id="@+id/save_text_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/save_tv"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="4dp"
                     android:text="@string/save"
@@ -288,12 +247,74 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/erase_drawing_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@+id/done_drawing_tv"
+                android:padding="10dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="@string/erase"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/done_drawing_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10dp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="@string/done"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/top_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/fading_shadow" />
+
+            <View
+                android:id="@+id/bottom_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/below_shadow" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/drawing_view_color_picker_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" />
+
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/image_emoji_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/image_emoji_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/image_emoji_indicator" />
 
             <com.ahmedadeltito.photoeditor.widget.RealtimeBlurView
                 android:layout_width="match_parent"
@@ -310,12 +331,6 @@
                 android:padding="12dp"
                 app:fillColor="#999999"
                 app:pageColor="#e7e7e7" />
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/image_emoji_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/image_emoji_indicator" />
 
         </RelativeLayout>
 

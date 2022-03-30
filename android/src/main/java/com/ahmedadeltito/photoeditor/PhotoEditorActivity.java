@@ -22,6 +22,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.WindowManager;
@@ -85,6 +87,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
     private TextView undoTextView, undoTextTextView, doneDrawingTextView, eraseDrawingTextView;
     private SlidingUpPanelLayout mLayout;
     private View topShadow;
+    private AppCompatSeekBar seekbarAlpha;
     private RelativeLayout topShadowRelativeLayout;
     private View bottomShadow;
     private RelativeLayout bottomShadowRelativeLayout;
@@ -163,6 +166,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         topShadowRelativeLayout = (RelativeLayout) findViewById(R.id.top_parent_rl);
         bottomShadow = findViewById(R.id.bottom_shadow);
         bottomShadowRelativeLayout = (RelativeLayout) findViewById(R.id.bottom_parent_rl);
+        seekbarAlpha=(AppCompatSeekBar)findViewById(R.id.skb_alpha);
 
         ViewPager pager = (ViewPager) findViewById(R.id.image_emoji_view_pager);
         PageIndicator indicator = (PageIndicator) findViewById(R.id.image_emoji_indicator);
@@ -208,6 +212,23 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
                 .brushDrawingView(brushDrawingView) // add the brush drawing view that is responsible for drawing on the image view
                 .buildPhotoEditorSDK(); // build photo editor sdk
         photoEditorSDK.setOnPhotoEditorSDKListener(this);
+
+        seekbarAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                photoEditorSDK.setAlphaToStickers(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 

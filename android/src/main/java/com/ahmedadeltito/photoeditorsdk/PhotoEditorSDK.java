@@ -1,4 +1,5 @@
 package com.ahmedadeltito.photoeditorsdk;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -104,6 +105,15 @@ public class PhotoEditorSDK implements MultiTouchListener.OnMultiTouchListener {
         addedViews.add(emojiRootView);
         if (onPhotoEditorSDKListener != null)
             onPhotoEditorSDKListener.onAddViewListener(ViewType.EMOJI, addedViews.size());
+    }
+
+    public void setAlphaToStickers(int alpha) {
+
+        for (int i = 0; i < addedViews.size(); i++) {
+            View tempView= addedViews.get(i);
+            float ext = ((float) alpha) / 100;
+            tempView.setAlpha(ext);
+        }
     }
 
     public void setBrushDrawingMode(boolean brushDrawingMode) {
