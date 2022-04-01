@@ -608,8 +608,8 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
             // mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
             ImagePicker.with(this)
                     .galleryOnly()
-                    .compress(1024)            //Final image size will be less than 1 MB(Optional)
-                    .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                    .compress(640)            //Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(720, 720)    //Final image resolution will be less than 1080 x 1080(Optional)
                     .start();
         } else if (v.getId() == R.id.add_crop_tv) {
             System.out.println("CROP IMAGE DUD");
